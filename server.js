@@ -78,7 +78,7 @@ let instruments = [
     brand: "Fender",
     price: 649900,
     quantity: 1,
-    imageURL: "http://localhost:3001/images/0110132850_gtr_frt_001_rr.jpg"
+    imageURL: "https://fast-images.static-thomann.de/pics/bdb/_54/548562/18405137_800.jpg"
   },
   {
     id: "5fef84f891013",
