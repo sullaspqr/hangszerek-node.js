@@ -12,11 +12,11 @@ const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Hangszerek API',
+      title: 'Dobok API',
       version: '1.0.0',
-      description: 'API hangszerek kezeléséhez Swagger dokumentációval',
+      description: 'API dobok kezeléséhez Swagger dokumentációval',
       contact: {
-        name: 'Hangszerbolt',
+        name: 'Dobfelszerelés bolt',
         url: 'http://localhost:3001'
       }
     },
@@ -50,12 +50,12 @@ app.use(cors());
  *          example: "5fef84f891012"
  *        name:
  *          type: string
- *          description: A hangszer neve
- *          example: "American Original '50s Telecaster®"
+ *          description: A dob neve
+ *          example: "Pearl Export EXX®"
  *        brand:
  *          type: string
- *          description: A hangszer márkája
- *          example: "Fender"
+ *          description: A dob márkája
+ *          example: "Pearl"
  *        price:
  *          type: number
  *          description: Ár (Ft-ban)
@@ -64,72 +64,90 @@ app.use(cors());
  *          type: number
  *          description: Raktárkészlet
  *          example: 1
- *        imageURL:
- *          type: string
- *          description: Kép URL
- *          example: "https://www.fmicassets.com/Damroot/GuitarVertDesktopJpg/10002/0110132850_gtr_frt_001_rr.jpg"
  */
 
-// Fix beégetett hangszer adatok
-let instruments = [
-  {
-    id: "5fef84f891012",
-    name: "American Original '50s Telecaster®",
-    brand: "Fender",
-    price: 649900,
-    quantity: 1,
-    imageURL: "https://fast-images.static-thomann.de/pics/bdb/_54/548562/18405137_800.jpg"
-  },
-  {
-    id: "5fef84f891013",
-    name: "Troublemaker Telecaster®",
-    brand: "Fender",
-    price: 469990,
-    quantity: 3,
-    imageURL: "https://www.fmicassets.com/Damroot/GuitarVertDesktopJpg/10001/5300100338_gtr_frt_001_rr.jpg"
-  },
-  {
-    id: "5fef84f891014",
-    name: "PM-2 Standard Parlor, Natural",
-    brand: "Fender",
-    price: 217500,
-    quantity: 8,
-    imageURL: "https://www.fmicassets.com/Damroot/GuitarVertDesktopJpg/10001/0970322321_gtr_frt_001_rr.jpg"
-  },
-  {
-    id: "5fef84f891015",
-    name: "Steve Vai Signature JEM77 - Blue Floral Pattern",
-    brand: "Ibanez",
-    price: 474775,
-    quantity: 2,
-    imageURL: "https://media.sweetwater.com/api/i/f-webp__q-85__ha-9a297ded42d50889__hmac-ea43dca50b7d9e5be6ad93b62b85d8379d251d3d/images/closeup/xl/1600-JEM77PBFP_front.jpg.auto.webp"
-  },
-  {
-    id: "5fef84f891016",
-    name: "J Custom RG8560 Electric Guitar - Sapphire Blue",
-    brand: "Ibanez",
-    price: 892800,
-    quantity: 1,
-    imageURL: "https://media.sweetwater.com/api/i/q-85__ha-47176ee3683d876a__hmac-649b6388a154e14c76ada1cb754c089f2a6b9c76/images/items/1800/RG8527ZSDE-xlarge.jpg"
-  },
-  {
-    id: "5fef84f891017",
-    name: "Viper-1000 - See Thru Black Cherry Satin",
-    brand: "ESP LTD",
-    price: 329000,
-    quantity: 4,
-    imageURL: "https://www.evertune.com/shop/guitars/ESP_LTD/VIPER-1000/evertune__guitars__ESP_LTD_VIPER-1000__see_thru_black_cherry_satin__v1.jpg"
-  }
+// Fix beégetett dob adatok
+let drums = [
+ {
+  id: "5fef84f891012",
+  name: "Mapex Saturn V MH Exotic",
+  brand: "Mapex",
+  price: 899000,
+  quantity: 1
+},
+{
+   id: "5fef84f891013",
+  name: "Pearl Masters Maple Complete",
+  brand: "Pearl",
+  price: 749000,
+  quantity: 1
+},
+{
+  id: "5fef84f891014",
+  name: "Yamaha Stage Custom Birch",
+  brand: "Yamaha",
+  price: 389000,
+  quantity: 1
+},
+{
+  id: "5fef84f891015",
+  name: "Tama Starclassic Maple",
+  brand: "Tama",
+  price: 820000,
+  quantity: 1
+},
+{
+  id: "5fef84f891016",
+  name: "Ludwig Classic Maple",
+  brand: "Ludwig",
+  price: 930000,
+  quantity: 1
+},
+{
+  id: "5fef84f891017",
+  name: "DW Collector’s Series Maple",
+  brand: "DW",
+  price: 1150000,
+  quantity: 1
+},
+{
+  id: "5fef84f891018,
+  name: "Sonor SQ1 Birch",
+  brand: "Sonor",
+  price: 690000,
+  quantity: 1
+},
+{
+  id: "5fef84f891019,
+  name: "Gretsch Renown Maple",
+  brand: "Gretsch",
+  price: 560000,
+  quantity: 1
+},
+{
+  id: "5fef84f891020
+  name: "Pearl Export EXX",
+  brand: "Pearl",
+  price: 289000,
+  quantity: 1
+},
+{
+  id: "5fef84f891021
+  name: "Tama Imperialstar",
+  brand: "Tama",
+  price: 245000,
+  quantity: 1
+}
 ];
 
 // CRUD végpontok
 
 /**
  * @swagger
- * /instruments:
+ * /drums:
  *   get:
- *     summary: Összes hangszer lekérdezése
- *     description: Visszaadja az összes hangszert
+ *     summary: Összes dob lekérdezése
+ *     description: Visszaadja az összes dobot
  *     responses:
  *       200:
  *         description: Sikeres lekérdezés
@@ -138,18 +156,18 @@ let instruments = [
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Instrument'
+ *                 $ref: '#/components/schemas/Drum'
  */
-app.get('/instruments', cors(), (req, res) => {
+app.get('/drums', cors(), (req, res) => {
   res.json(instruments);
 });
 
 /**
  * @swagger
- * /instruments/{id}:
+ * /drums/{id}:
  *   get:
- *     summary: Egy hangszer lekérdezése ID alapján
- *     description: Visszaad egy hangszert az ID-ja alapján
+ *     summary: Egy dob lekérdezése ID alapján
+ *     description: Visszaad egy dobot az ID-ja alapján
  *     parameters:
  *       - in: path
  *         name: id
@@ -163,65 +181,65 @@ app.get('/instruments', cors(), (req, res) => {
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Instrument'
+ *               $ref: '#/components/schemas/Drum'
  *       404:
  *         description: A hangszer nem található
  */
-app.get('/instruments/:id', cors(), (req, res) => {
+app.get('/drums/:id', cors(), (req, res) => {
   const id = req.params.id;
-  const instrument = instruments.find(item => item.id === id);
+  const drum = drums.find(item => item.id === id);
 
-  if (instrument) {
-    res.json(instrument);
+  if (drum) {
+    res.json(drum);
   } else {
-    res.status(404).json({ message: 'Hangszer nem található' });
+    res.status(404).json({ message: 'Dob nem található' });
   }
 });
 
 /**
  * @swagger
- * /instruments:
+ * /drums:
  *   post:
- *     summary: Új hangszer létrehozása
- *     description: Létrehoz egy új hangszert
+ *     summary: Új dob létrehozása
+ *     description: Létrehoz egy új dobot
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Instrument'
+ *             $ref: '#/components/schemas/Drum'
  *     responses:
  *       201:
  *         description: Sikeresen létrehozva
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Instrument'
+ *               $ref: '#/components/schemas/Drum'
  */
-let counter = 18;
+let counter = 22;
 
-app.post('/instruments', cors(), (req, res) => {
+app.post('/drums', cors(), (req, res) => {
 
-  const newInstrument = {
+  const newDrum = {
     id: "5fef84f8910" + counter++,
     ...req.body
   };
 
-  instruments.push(newInstrument);
-  res.status(201).json(newInstrument);
+  drums.push(newDrum);
+  res.status(201).json(newDrum);
 });
 
 /**
  * @swagger
- * /instruments/{id}:
+ * /drums/{id}:
  *   put:
- *     summary: Hangszer frissítése
- *     description: Frissít egy hangszert az ID-ja alapján
+ *     summary: Dob frissítése
+ *     description: Frissít egy dobot az ID-ja alapján
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: A hangszer ID-ja
+ *         description: A dob ID-ja
  *         schema:
  *           type: string
  *     requestBody:
@@ -229,42 +247,42 @@ app.post('/instruments', cors(), (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Instrument'
+ *             $ref: '#/components/schemas/Drum'
  *     responses:
  *       200:
  *         description: Sikeres frissítés
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Instrument'
+ *               $ref: '#/components/schemas/Drum'
  *       404:
- *         description: A hangszer nem található
+ *         description: A dob nem található
  */
-app.put('/instruments/:id', cors(), (req, res) => {
+app.put('/drums/:id', cors(), (req, res) => {
   const id = req.params.id;
-  const updatedInstrument = req.body;
+  const updatedDrum = req.body;
 
-  const index = instruments.findIndex(item => item.id === id);
+  const index = drums.findIndex(item => item.id === id);
 
   if (index !== -1) {
-    instruments[index] = { ...instruments[index], ...updatedInstrument };
-    res.json(instruments[index]);
+    drums[index] = { ...drums[index], ...updatedDrum };
+    res.json(drums[index]);
   } else {
-    res.status(404).json({ message: 'Hangszer nem található' });
+    res.status(404).json({ message: 'Dob nem található' });
   }
 });
 
 /**
  * @swagger
- * /instruments/{id}:
+ * /drums/{id}:
  *   delete:
- *     summary: Hangszer törlése
- *     description: Töröl egy hangszert az ID-ja alapján
+ *     summary: Dob törlése
+ *     description: Töröl egy dobot az ID-ja alapján
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: A hangszer ID-ja
+ *         description: A dob ID-ja
  *         schema:
  *           type: string
  *     responses:
@@ -273,19 +291,19 @@ app.put('/instruments/:id', cors(), (req, res) => {
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Instrument'
+ *               $ref: '#/components/schemas/Drum'
  *       404:
- *         description: A hangszer nem található
+ *         description: A dob nem található
  */
-app.delete('/instruments/:id', cors(), (req, res) => {
+app.delete('/drums/:id', cors(), (req, res) => {
   const id = req.params.id;
-  const index = instruments.findIndex(item => item.id === id);
+  const index = drums.findIndex(item => item.id === id);
 
   if (index !== -1) {
-    const deletedInstrument = instruments.splice(index, 1)[0];
-    res.json(deletedInstrument);
+    const deletedDrum = drums.splice(index, 1)[0];
+    res.json(deletedDrum);
   } else {
-    res.status(404).json({ message: 'Hangszer nem található' });
+    res.status(404).json({ message: 'Dob nem található' });
   }
 });
 
